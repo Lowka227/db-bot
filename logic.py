@@ -134,5 +134,3 @@ if __name__ == '__main__':
     manager = DB_Manager(DATABASE)
     manager.create_tables()
     manager.default_insert()
-    manager.insert_project([(1, "Эко бот", "https://github.com/Lowka227/ekology-bot.git", 5)])
-    manager.delete_status(4)
