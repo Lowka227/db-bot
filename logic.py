@@ -121,9 +121,18 @@ class DB_Manager:
     def delete_skill(self, project_id, skill_id):
         sql = """DELETE FROM skills WHERE skill_id = ? AND project_id = ? """ # Запиши сюда правильный SQL запрос
         self.__executemany(sql, [(skill_id, project_id)])
+
+    def delete_status(self, status_id):
+        con = sqlite3.connect(self.database)
+        with con:
+            cur = con.execute("SELECT COUNT(*) FROM projects WHERE status_id = ?", (status_id,))
+            con.execute("DELETE FROM status WHERE status_id = ?", (status_id,))
+            con.commit()
+            print(f"Статус {status_id} успешно удалён.")
     
 if __name__ == '__main__':
     manager = DB_Manager(DATABASE)
     manager.create_tables()
     manager.default_insert()
     manager.insert_project([(1, "Эко бот", "https://github.com/Lowka227/ekology-bot.git", 5)])
+    manager.delete_status(4)
